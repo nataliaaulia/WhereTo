@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+
+    android:id="@+id/home"
+    android:title="HOME"
+    android:icon="@drawable/ic_home_black_24dp"
+    android:textColor="#000080">
+
+</item>
+
+<item
+
+    android:id="@+id/profile"
+    android:title="PROFILE"
+    android:icon="@drawable/ic_person_black_24dp"
+    android:textColor="#000080">
+
+</item>
+
+<item
+
+    android:id="@+id/activities"
+    android:title="ACTIVITIES"
+    android:icon="@drawable/ic_directions_run_black_24dp"
+    android:textColor="#000080">
+
+</item>
+
+<item
+
+    android:id="@+id/custService"
+    android:title="CUSTOMER SERVICE"
+    android:icon="@drawable/ic_contact_phone_black_24dp"
+    android:textColor="#000080">
+
+</item>
+
+    <item
+
+        android:id="@+id/logout"
+        android:title="LOG OUT"
+        android:icon="@drawable/ic_navigate_before_black_24dp"
+        android:textColor="#000080">
+
+    </item>
+</menu>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Where to?</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="head1">People and Pets Together</string>
+    <string name="string1">We are in need of volunteers to work at our pet food shelf and vaccination clinics. We can also use help in office support-type roles, help with their website and deliver pet food for them. Contact us if you are interested!</string>
+    <string name="head2">The Food Group</string>
+    <string name="string2">We are available from 9:00 am – 5:00 pm and occasional evenings and weekends. The only requirement is that you are at least 12 years old.All work takes place at their warehouse located at 8501 54th Ave N. in New Hope.</string>
+    <string name="head3">Great River Faith in Action</string>
+    <string name="string3">As a volunteer you can provide direct service, doing things such as transporting seniors to medical appointment, cleaing, , raking, building ramps or helping with moves. You are welcome to help with anything!</string>
+    <string name="head4">The Bridge for Youth</string>
+    <string name="string4">The Bridge for Youth is currently looking for committed individuals to join them in their Youth Response Center (YRC). Their awesome volunteers take calls and texts 24/7/365 from youth looking for a place to stay or just looking for someone with whom they can talk.</string>
+</resources>
+
