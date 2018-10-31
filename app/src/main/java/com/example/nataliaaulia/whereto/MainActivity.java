@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button mSignUp;
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView mTextView;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    private static final String TAG = "Main Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +49,18 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(MainActivity.this, SignUp.class);
+                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "Email sent.");
+                            }
+                        }
+                    });
+
+                    Intent intent = new Intent(MainActivity.this, HomePage.class);
                     startActivity(intent);
                     finish();
-                    return;
                 }
             }
         };
@@ -65,8 +79,29 @@ public class MainActivity extends AppCompatActivity {
                 mSignUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final String email = mEmail.getText().toString();
-                        final String password = mPassword.getText().toString();
+                        final String email = mEmail.getText().toString().trim();
+                        final String password = mPassword.getText().toString().trim();
+
+                        if(TextUtils.isEmpty(email)) {
+                            Toast.makeText(getApplicationContext(), "Enter email address", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if(isEmailValid(email)) {
+                            Toast.makeText(getApplicationContext(), "Enter a valid email address", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if(TextUtils.isEmpty(password)) {
+                            Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if(password.length() < 6) {
+                            Toast.makeText(getApplicationContext(), "Password is too short!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -78,6 +113,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
 
         @Override
@@ -91,3 +133,4 @@ public class MainActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(firebaseAuthListener);
         }
 }
+
